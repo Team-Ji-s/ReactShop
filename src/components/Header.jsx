@@ -149,7 +149,7 @@ const HeaderItem = styled.div`
   margin-right: 0.5rem;
   display: flex;
   flex-direction: row;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 `
 
 const ModeButton = styled(Button)`
@@ -198,7 +198,7 @@ const CartNumber = styled.span`
   background-color: red;
   color: white;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   border-radius: 100%;
   text-align: center;
   position: absolute;
