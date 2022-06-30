@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import CardList from './CardList'
+import React from "react"
+import styled from "styled-components"
+import CardList from "./CardList"
 
 export default function CardSection({ title, data }) {
   return (
@@ -11,17 +11,16 @@ export default function CardSection({ title, data }) {
   )
 }
 
-let CategorySection = styled.section`
-  width: 80%;
-  margin: 0 auto;
+const CategorySection = styled.div`
+  margin: 0 auto 3rem;
   padding-top: 3rem;
 `
 
-let SectionTitle = styled.h1`
+const SectionTitle = styled.h1`
   margin: 0;
   text-align: center;
   display: block;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `
