@@ -24,7 +24,6 @@ export default function Fashion() {
 }
 
 const FashionWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 `
