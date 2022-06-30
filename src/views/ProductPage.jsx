@@ -61,7 +61,7 @@ export default function ProductPage() {
         <Contents>
           <Title>
             <ProductTitle>{cartProduct.title}</ProductTitle>
-            <Badge type={"new"}>NEW</Badge>
+            <Badge type={"best"} />
           </Title>
           <Description>{cartProduct.description}</Description>
           <RateDiv>
