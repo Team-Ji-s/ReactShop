@@ -1,55 +1,54 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
-export default function Filter({setFunction}) {
-
+export default function Filter({ setFunction }) {
   const selectFilter = (filter) => {
-    switch(filter) {
-      case "default" :
+    switch (filter) {
+      case "default":
         return defaultFilter()
-      case "highPrice" :
+      case "highPrice":
         return highPriceFilter()
-      case "lowPrice" :
+      case "lowPrice":
         return lowPriceFilter()
-      case "highRate" :
+      case "highRate":
         return highRateFilter()
-      case "lowRate" :
+      case "lowRate":
         return lowRateFilter()
     }
   }
-  
+
   const defaultFilter = () => {
-    setFunction((item) =>{
+    setFunction((item) => {
       const sorted = item.sort((a, b) => a.id - b.id)
-      return ([...sorted])
+      return [...sorted]
     })
   }
-  
+
   const highRateFilter = () => {
-    setFunction((item) =>{
+    setFunction((item) => {
       const sorted = item.sort((a, b) => b.rating.rate - a.rating.rate)
-      return ([...sorted])
+      return [...sorted]
     })
   }
 
   const lowRateFilter = () => {
-    setFunction((item) =>{
+    setFunction((item) => {
       const sorted = item.sort((a, b) => a.rating.rate - b.rating.rate)
-      return ([...sorted])
+      return [...sorted]
     })
   }
-  
+
   const lowPriceFilter = () => {
-    setFunction((item) =>{
+    setFunction((item) => {
       const sorted = item.sort((a, b) => a.price - b.price)
-      return ([...sorted])
+      return [...sorted]
     })
   }
 
   const highPriceFilter = () => {
-    setFunction((item) =>{
+    setFunction((item) => {
       const sorted = item.sort((a, b) => b.price - a.price)
-      return ([...sorted])
+      return [...sorted]
     })
   }
 
@@ -57,7 +56,7 @@ export default function Filter({setFunction}) {
     const checkBoxes = document.getElementsByName("filter")
     for (let i = 0; i < checkBoxes.length; i++) {
       if (checkBoxes[i] !== check) {
-        checkBoxes[i].checked = false;
+        checkBoxes[i].checked = false
       } else if (checkBoxes[i] === check) {
         if (checkBoxes[i].checked) {
           checkBoxes[i].onclick = selectFilter(checkBoxes[i].value)
@@ -68,45 +67,77 @@ export default function Filter({setFunction}) {
     }
   }
 
-
   return (
     <FilterWrapper>
       <FilterList>
-        <input  type="checkbox" id="highRate" name="filter" value="highRate" onChange={(e) => checkOne(e.target)}/>
+        <input
+          type="checkbox"
+          className="checkbox checkbox-md"
+          id="highRate"
+          name="filter"
+          value="highRate"
+          onChange={(e) => checkOne(e.target)}
+        />
         <FilterText htmlFor="highRate">높은별점순</FilterText>
       </FilterList>
       <FilterList>
-        <input  type="checkbox" id="lowRate" name="filter" value="lowRate" onChange={(e) => checkOne(e.target)}/>
+        <input
+          type="checkbox"
+          className="checkbox checkbox-md"
+          id="lowRate"
+          name="filter"
+          value="lowRate"
+          onChange={(e) => checkOne(e.target)}
+        />
         <FilterText htmlFor="lowRate">낮은별점순</FilterText>
       </FilterList>
       <FilterList>
-        <input type="checkbox" id="highPrice" name="filter" value="highPrice" onChange={(e) => checkOne(e.target)}/>
+        <input
+          type="checkbox"
+          className="checkbox checkbox-md"
+          id="highPrice"
+          name="filter"
+          value="highPrice"
+          onChange={(e) => checkOne(e.target)}
+        />
         <FilterText htmlFor="highPrice">높은가격순</FilterText>
       </FilterList>
       <FilterList>
-        <input type="checkbox" id="lowPrice" name="filter" value="lowPrice" onChange={(e) => checkOne(e.target)}/>
+        <input
+          type="checkbox"
+          className="checkbox checkbox-md"
+          id="lowPrice"
+          name="filter"
+          value="lowPrice"
+          onChange={(e) => checkOne(e.target)}
+        />
         <FilterText htmlFor="lowPrice">낮은가격순</FilterText>
       </FilterList>
-  </FilterWrapper>
+    </FilterWrapper>
   )
 }
 
 const FilterWrapper = styled.div`
-  width : 60rem;
-  height : 4rem;
-  margin-left : 2rem;
-` 
+  width: 60rem;
+  height: 2.5rem;
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: row;
+`
 
 const FilterList = styled.div`
-  display : inline-block;
-  margin-right : 1rem;
+  width: 9rem;
+  height: 2rem;
+  display: inline-block;
+  align-items: center;
 `
 
 const FilterText = styled.label`
-  font-size : ${({theme}) => theme.font.size.normal};
-  font-weight : ${({theme}) => theme.font.weight.normal};
-  cursor : pointer;
+  font-size: ${({ theme }) => theme.font.size.normal};
+  font-weight: ${({ theme }) => theme.font.weight.normal};
+  margin-left: 0.5rem;
+  cursor: pointer;
   &:hover {
-    color : ${({theme}) => theme.color.grey};
+    color: ${({ theme }) => theme.color.grey};
   }
 `
