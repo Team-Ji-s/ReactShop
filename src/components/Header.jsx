@@ -25,26 +25,6 @@ export default function Header() {
     dispatch(change({ color: mode }))
   }
 
-  const onChangeSearchInput = (event) => {
-    let keyword = event.target.value
-    setSearchInput(keyword)
-    if (keyword !== "") {
-      setSearchListView(true)
-    }
-  }
-
-  const handleCloseSearch = (e) => {
-    if (searchListView && !searchElement.current.contains(e.target)) setSearchListView(false)
-  }
-
-  useEffect(() => {
-    dispatch(getList())
-    document.addEventListener("click", handleCloseSearch)
-    return () => {
-      document.removeEventListener("click", handleCloseSearch)
-    }
-  })
-
   const category = categoryData.map((item, index) => (
     <CategoryLink mode={mode} key={index} to={item.url}>
       {item.category}
@@ -97,6 +77,7 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   z-index: 10;
+  box-shadow: 7px 7px 7px 0 #ddd;
 `
 
 const StyledLink = styled(Link)`
