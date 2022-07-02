@@ -4,24 +4,16 @@ import CardItem from "./CardItem"
 
 export default function CardList({ data }) {
   return (
-    <Wrapper>
-      <CardContainer>
-        {data?.map(({ id, category, image, title, price }) => {
-          return <CardItem key={`${category}_${id}`} id={id} src={image} alt={category} title={title} price={price} />
-        })}
-      </CardContainer>
-    </Wrapper>
+    <CardContainer>
+      {data?.map(({ id, category, image, title, price }) => {
+        return <CardItem key={`${category}_${id}`} id={id} src={image} alt={category} title={title} price={price} />
+      })}
+    </CardContainer>
   )
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 const CardContainer = styled.div`
-  width: 94%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
 `
