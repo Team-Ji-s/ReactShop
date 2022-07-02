@@ -49,7 +49,7 @@ export default function Header() {
       </Logo>
       <Category>{category}</Category>
       <HeaderItem>
-        <ModeButton size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
+        <ModeButton margin={"0.5rem"} size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
           {mode === "black" ? (
             <LightMode icon={faSun} alt="라이트 모드 선택" />
           ) : (
@@ -111,7 +111,7 @@ const CategoryLink = styled(StyledLink)`
   font-size: 1.4rem;
   font-weight: 700;
   text-align: center;
-  padding-top: 0.5rem;
+  padding-top: 0.2rem;
   &:hover {
     background-color: #696969;
   }
@@ -136,7 +136,7 @@ const HeaderItem = styled.div`
 const ModeButton = styled(Button)`
   display: inline-block;
   background-color: ${({ color }) => (color === "black" ? "black" : "white")};
-  margin: 1rem 1rem 0 0;
+  // margin: 1rem 1rem 0 0;
   transition: 0.3s;
   &:hover {
     background-color: #696969;
