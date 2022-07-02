@@ -103,7 +103,7 @@ export default function Filter({ setFunction }) {
         <FilterText htmlFor="highPrice">높은가격순</FilterText>
       </FilterList>
       <FilterList>
-        <input
+        <FilterCheckbox
           type="checkbox"
           className="checkbox checkbox-md"
           id="lowPrice"
@@ -136,8 +136,14 @@ const FilterText = styled.label`
   font-size: ${({ theme }) => theme.font.size.normal};
   font-weight: ${({ theme }) => theme.font.weight.normal};
   margin-left: 0.5rem;
+  position: relative;
+  top: -1.5px;
   cursor: pointer;
   &:hover {
     color: ${({ theme }) => theme.color.grey};
   }
+`
+const FilterCheckbox = styled.input`
+  position: relative;
+  top: 1.5px;
 `
