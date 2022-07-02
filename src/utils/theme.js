@@ -33,7 +33,8 @@ const width = {
 
 const height = {
   small: "2rem",
-  medium: "4rem"
+  medium: "2.5rem",
+  large : "4rem",
 }
 
 const theme = {
