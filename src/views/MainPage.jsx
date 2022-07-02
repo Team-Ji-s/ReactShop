@@ -29,5 +29,6 @@ export default function MainPage() {
 }
 
 const MainWrapper = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
 `
