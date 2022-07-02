@@ -3,7 +3,6 @@ import styled from "styled-components"
 import BreadCrumbs from "../components/BreadCrumbs"
 import Badge from "../components/Badge"
 import StarRate from "../components/StarRate"
-import Button from "../components/Button"
 import { Link, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { add } from "../redux/cart"
@@ -54,15 +53,17 @@ export default function ProductPage() {
   }
 
   return (
-    <ProductWrapper>
+    <ProductPageWrapper>
       <BreadCrumbs from={cartProduct.category} to={cartProduct.title} />
-      <Product>
-        <Image src={cartProduct.image}></Image>
-        <Contents>
-          <Title>
-            <ProductTitle>{cartProduct.title}</ProductTitle>
-            <Badge type={"best"} />
-          </Title>
+      <ProductWrapper className="card lg:card-side bg-base-100 shadow-xl">
+        <ImageWrapper className="px-10 pt-10">
+          <Image src={cartProduct.image} alt="상품이미지" className="rounded-xl" />
+        </ImageWrapper>
+        <Contents className="card-body">
+          <ProductTitle>
+            <Title className="card-title">{cartProduct.title}</Title>
+            <Badge type={"best"} size={"large"} />
+          </ProductTitle>
           <Description>{cartProduct.description}</Description>
           <RateDiv>
             <StarRate rate={cartProduct.rating?.rate} />
@@ -72,71 +73,76 @@ export default function ProductPage() {
           </RateDiv>
           <Price>${cartProduct.price}</Price>
           <ButtonDiv>
-            <Button size={"large"} onClick={addToCart}>
+            <Button className="btn btn-primary" onClick={addToCart}>
               장바구니에 담기
             </Button>
             {modal === true ? <Modal /> : null}
             <Link to={"/myCart"}>
-              <Button size={"large"}>장바구니로 이동</Button>
+              <Button className="btn btn-secondary">장바구니로 이동</Button>
             </Link>
           </ButtonDiv>
         </Contents>
-      </Product>
-    </ProductWrapper>
+      </ProductWrapper>
+    </ProductPageWrapper>
   )
 }
 
-const ProductWrapper = styled.div`
-  width: 100%;
-  height: 40rem;
-  background-color: darkgrey;
+const ProductPageWrapper = styled.div`
+  height: 50rem;
   display: flex;
   flex-direction: column;
 `
 
-const Product = styled.div`
-  margin: 0 2rem 0 1rem;
-  display: flex;
-  flex-direction: row;
+const ProductWrapper = styled.div`
+  height: 45rem;
+`
+
+const ImageWrapper = styled.figure`
+  margin: 0;
+  padding: 0;
 `
 
 const Image = styled.img`
-  width: 30rem;
-  height: 30rem;
+  width: 40rem;
+  height: 40rem;
   background-color: white;
   object-fit: scale-down;
   display: inline-block;
-  border-radius: ${({ theme }) => theme.borderRadius.all};
+  padding: 3rem;
+  border-radius: 3rem;
+  box-shadow: 2px 2px 2px 2px #ddd;
+  margin-left: 2rem;
 `
 
 const Contents = styled.div`
-  display: grid;
-  width: calc(100% - 31rem);
-  height: 30rem;
-  margin-left: 3rem;
-  grid-auto-flow: row;
-  row-gap: 0.2rem;
-  padding-top: 0.5rem;
+  height: 40rem;
+  margin: auto;
+  padding: 3rem;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.5rem;
 `
-
-const Title = styled.div`
-  width: 100%;
-  height: 2rem;
-  font-size: ${({ theme }) => theme.font.size.large};
-  color: ${({ theme }) => theme.color.black};
-  font-weight: ${({ theme }) => theme.font.weight.normal};
-`
-
 const ProductTitle = styled.span`
-  height: 2rem;
+  display: flex;
+  // flex-direction: row;
+  align-items: center;
+  // row-gap: 1rem;
+  gap: 0.5rem;
+  margin: 1rem 0;
+`
+const Title = styled.h2`
   display: inline-block;
+  font-size: 2.5rem;
   margin-right: 1rem;
+  line-height: 3rem;
 `
 
 const Description = styled.div`
   width: 100%;
-  font-size: ${({ theme }) => theme.font.size.normal};
+  font-size: 1.5rem;
   color: ${({ theme }) => theme.color.black};
+  margin-bottom: 1rem;
 `
 
 const RateDiv = styled.div`
@@ -144,28 +150,40 @@ const RateDiv = styled.div`
   height: 3rem;
   display: flex;
   flex-direction: row;
+  margin-bottom: 1rem;
 `
 
 const Rate = styled.span`
   height: 3rem;
-  font-size: ${({ theme }) => theme.font.size.normal};
+  font-size: ${({ theme }) => theme.font.size.large};
   color: ${({ theme }) => theme.color.black};
   margin-left: 1rem;
   text-align: center;
-  padding-top: 0.75rem;
+  padding-top: 0.5rem;
+  font-weight: 700;
 `
 const Price = styled.div`
-  font-size: ${({ theme }) => theme.font.size.large};
+  font-size: 2.5rem;
   color: ${({ theme }) => theme.color.black};
   font-weight: ${({ theme }) => theme.font.weight.normal};
+  margin-bottom: 2rem;
 `
 
 const ButtonDiv = styled.div`
   display: grid;
-  width: 12rem;
+  width: 25rem;
   height: 4rem;
   grid-auto-flow: column;
   column-gap: 0.5rem;
+`
+
+const Button = styled.button`
+  width: 12rem;
+  height: 4rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0;
+  color: white;
 `
 
 const ModalWrapper = styled.div`
