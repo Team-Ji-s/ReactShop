@@ -71,6 +71,7 @@ const Container = styled.div`
   height: ${({ height }) => height || "40rem"};
   position: relative;
   margin: 5rem auto 0;
+  border-radius: 2rem;
   overflow: hidden;
 `
 const Slides = styled.div`
@@ -87,6 +88,7 @@ const Image = styled.div`
   background-repeat: no-repeat;
 `
 const Control = styled.button`
+  width: 3.5rem;
   position: absolute;
   top: 50%;
   height: 100%;
