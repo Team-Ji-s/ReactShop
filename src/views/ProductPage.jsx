@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useCallback, useMemo } from "react"
 import styled from "styled-components"
 import BreadCrumbs from "../components/BreadCrumbs"
 import Badge from "../components/Badge"
@@ -6,9 +6,9 @@ import StarRate from "../components/StarRate"
 import { Link, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { add } from "../redux/cart"
-import { getList } from "../redux/setProduct"
+import Modal from "../components/ProductModal"
 
-export default function ProductPage() {
+export const ProductPage = React.memo(() => {
   const { id } = useParams()
   const [modal, setModal] = useState(false)
   const [cartProduct, setCartProduct] = useState({})
@@ -17,8 +17,7 @@ export default function ProductPage() {
   const list = useSelector((state) => state.setProduct.value)
 
   useEffect(() => {
-    dispatch(getList())
-    const item = list.filter((item) => item.id.toString() === id)
+    const item = list?.filter((item) => item.id.toString() === id)
     setCartProduct(() => ({
       ...item[0],
       rating: { ...item[0].rating, rate: parseFloat(item[0].rating.rate).toFixed(1) }
@@ -32,29 +31,13 @@ export default function ProductPage() {
         count: count + 1
       })
     )
-    setModal(true)
-  }
-
-  const Modal = () => {
-    return (
-      <ModalWrapper>
-        <ModalContent>장바구니에 담겼습니다.</ModalContent>
-        <Button
-          color={"green"}
-          size={"small"}
-          onClick={() => {
-            setModal(!modal)
-          }}
-        >
-          확인
-        </Button>
-      </ModalWrapper>
-    )
+    setModal((open) => !open)
   }
 
   return (
     <ProductPageWrapper>
       <BreadCrumbs from={cartProduct.category} to={cartProduct.title} />
+      {modal === true ? <Modal showModal={modal} setShowModal={setModal} /> : null}
       <ProductWrapper className="card lg:card-side bg-base-100 shadow-xl">
         <ImageWrapper className="px-10 pt-10">
           <Image src={cartProduct.image} alt="상품이미지" className="rounded-xl" />
@@ -76,7 +59,6 @@ export default function ProductPage() {
             <Button className="btn btn-primary" onClick={addToCart}>
               장바구니에 담기
             </Button>
-            {modal === true ? <Modal /> : null}
             <Link to={"/myCart"}>
               <Button className="btn btn-secondary">장바구니로 이동</Button>
             </Link>
@@ -85,12 +67,13 @@ export default function ProductPage() {
       </ProductWrapper>
     </ProductPageWrapper>
   )
-}
+})
 
 const ProductPageWrapper = styled.div`
   height: 50rem;
   display: flex;
   flex-direction: column;
+  position: relative;
 `
 
 const ProductWrapper = styled.div`
@@ -125,9 +108,7 @@ const Contents = styled.div`
 `
 const ProductTitle = styled.span`
   display: flex;
-  // flex-direction: row;
   align-items: center;
-  // row-gap: 1rem;
   gap: 0.5rem;
   margin: 1rem 0;
 `
