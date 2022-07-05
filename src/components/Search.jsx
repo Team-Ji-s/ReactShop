@@ -122,6 +122,14 @@ const SearchViewWrapper = styled.div`
   z-index: 12;
   border: 1px solid black;
   margin-left: 1rem;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: grey;
+    border-radius: 1rem;
+  }
 `
 
 const Items = styled.ul`
@@ -131,8 +139,9 @@ const Items = styled.ul`
 const ItemList = styled.li`
   list-style: none;
   margin: 0.5rem;
+  border-radius: 0.3rem;
   &:hover {
-    background-color: ${({ theme }) => theme.color.grey};
+    background-color: #ddd;
   }
   cursor: pointer;
 `
@@ -144,6 +153,7 @@ const SearchInput = styled.input`
   border-radius: 0.5rem;
   border: 0;
   color: ${(props) => (props.mode === "black" ? "white" : "black")};
+  font-size: 1.3rem;
   padding-left: 0.6rem;
   margin: 0.6rem 0 0 0.5rem;
   ::placeholder {
@@ -154,6 +164,8 @@ const SearchInput = styled.input`
 const Item = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.color.black};
+  font-size: 1.1rem;
+  font-weight: 600;
 `
 
 const NonItem = styled.li`
