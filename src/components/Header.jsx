@@ -20,6 +20,10 @@ export default function Header() {
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(getList())
+  }, [])
+
   const onClickMode = () => {
     mode = mode === "black" ? "white" : "black"
     dispatch(change({ color: mode }))
@@ -30,10 +34,6 @@ export default function Header() {
       {item.category}
     </CategoryLink>
   ))
-
-  useEffect(() => {
-    dispatch(getList())
-  }, [])
 
   return (
     <HeaderWrapper mode={mode}>
