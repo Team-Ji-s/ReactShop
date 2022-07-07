@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
-// import Button from "../components/Button"
-import CartModal from "../components/CartModal"
+import Modal from "../components/CartModal"
 import { Link } from "react-router-dom"
-import { increase, decrease, remove, removeAll } from "../redux/cart"
+import { increase, decrease, removeAll } from "../redux/cart"
+import Alert from "../components/Alert"
 
 export default function Cart() {
-  const [purchaseList, setPurchaseList] = useState({ itemList: [], totalPrice: 0, modalVisible: false })
+  const [purchaseList, setPurchaseList] = useState({ itemList: [], totalPrice: 0 })
   const [cartProducts, setCartProducts] = useState([])
+  const [modal, setModal] = useState(false)
+  const [alert, setAlert] = useState(false)
+  const [deleteAlert, setDeleteAlert] = useState(false)
+  const [minAlert, setMinAlert] = useState(false)
   const products = useSelector(({ cart }) => cart.products)
+
   const dispatch = useDispatch()
+
   useEffect(() => {
     setCartProducts(() => [...products])
   }, [products])
@@ -38,13 +44,14 @@ export default function Cart() {
     if (target.id === "immediatePurchase") {
       const item = cartProducts.filter((productInfo) => productInfo.id.toString() === target.dataset.id)
       const totalPrice = item[0]?.cartCount * item[0]?.price
-      setPurchaseList(() => ({ itemList: [...item], totalPrice: totalPrice, modalVisible: true }))
+      setPurchaseList(() => ({ itemList: [...item], totalPrice: totalPrice }))
+      setModal((open) => !open)
     }
 
     if (target.id === "partialPurchase") {
       const partialChecks = [...productChecks].filter(({ checked }) => checked === true).map(({ value }) => value)
       if (!partialChecks.length) {
-        alert("선택한 상품이 없습니다")
+        setAlert((open) => !open)
         return
       }
       const partialPurchaseList = cartProducts.filter(({ id }) => partialChecks.includes(id.toString()))
@@ -52,13 +59,19 @@ export default function Cart() {
         return totalItem + curItem?.cartCount * curItem?.price
       }, 0)
       setPurchaseList(() => {
-        return { itemList: [...partialPurchaseList], totalPrice: totalPrice, modalVisible: true }
+        return { itemList: [...partialPurchaseList], totalPrice: totalPrice }
       })
+      setModal((open) => !open)
     }
   }
 
   return (
     <Wrapper>
+      {modal === true ? (
+        <Modal title="Receipt" purchaseList={purchaseList} showModal={modal} setShowModal={setModal} />
+      ) : null}
+      {alert === true ? <Alert type="partialPurchase" setState={setAlert} state={alert} /> : null}
+      {minAlert === true ? <Alert type="minAlert" setState={setMinAlert} state={minAlert} /> : null}
       {cartProducts.length ? (
         <CartWrapper>
           <AllProductsCheck>
@@ -96,6 +109,15 @@ export default function Cart() {
                         </ProductDescription>
                       </ContentsContainer>
                     </Link>
+                    {deleteAlert === true ? (
+                      <Alert
+                        type={"partialDelete"}
+                        setState={setDeleteAlert}
+                        state={deleteAlert}
+                        itemId={id}
+                        title={title}
+                      />
+                    ) : null}
                     <ItemButtonWrapper>
                       <Button data-id={id} className="btn btn-primary" id="immediatePurchase" onClick={handlePurchase}>
                         구매하기
@@ -103,10 +125,7 @@ export default function Cart() {
                       <Button
                         className="btn btn-primary"
                         onClick={() => {
-                          if (confirm(`${title}을 삭제하시겠습니까?`)) {
-                            dispatch(remove({ id }))
-                          }
-                          return
+                          setDeleteAlert((open) => !open)
                         }}
                       >
                         삭제하기
@@ -116,8 +135,9 @@ export default function Cart() {
                           className="btn btn-square"
                           onClick={() => {
                             if (cartCount === 1) {
-                              alert("최소 수량 1입니다.")
-                              return
+                              // alert("최소 수량 1입니다.")
+                              // return
+                              setMinAlert((open) => !open)
                             } else {
                               dispatch(decrease({ id }))
                             }
@@ -155,7 +175,6 @@ export default function Cart() {
               전체 상품 삭제하기
             </Button>
           </CartListButtonWrapper>
-          <CartModal title="Receipt" state={purchaseList} setState={setPurchaseList} />
         </CartWrapper>
       ) : (
         <NoProductsWrapper>

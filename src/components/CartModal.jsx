@@ -1,80 +1,103 @@
+import { useRef, useCallback, useEffect } from "react"
 import styled from "styled-components"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
 
-export default function CartModal({ title, state, setState }) {
+export default function CartModal({ title, purchaseList, showModal, setShowModal }) {
+  const modalRef = useRef()
+
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      setShowModal(false)
+    }
+  }
+
+  const closeKey = useCallback(
+    (e) => {
+      if (e.key === "Escape" && showModal) {
+        setShowModal(false)
+      }
+    },
+    [setShowModal, showModal]
+  )
+
+  useEffect(() => {
+    document.addEventListener("keydown", closeKey)
+    return () => document.removeEventListener("keydown", closeKey)
+  }, [closeKey])
+
+  const isChecked = (checked) => {
+    if (checked) {
+      return "checked"
+    } else {
+      return null
+    }
+  }
+
   return (
-    <Overlay
-      isVisible={state?.modalVisible}
-      onClick={() => setState((preValue) => ({ ...preValue, modalVisible: false }))}
-    >
-      <Container isVisible={state?.modalVisible}>
-        <CloseButton onClick={() => setState((preValue) => ({ ...preValue, modalVisible: false }))}>
-          <FontAwesomeIcon icon={faXmark} />
-        </CloseButton>
-        <Header>
-          <Title>{title}</Title>
-        </Header>
-        <Body>
-          <Heading>
-            <ProductName>Product Name</ProductName>
-            <Quantity>Quantity</Quantity>
-            <Price>Price</Price>
-          </Heading>
-          {state.itemList.map(({ title, price, cartCount }, idx) => {
-            return (
-              <BodyGrid key={"Reciept" + idx}>
-                <ProductName>{title}</ProductName>
-                <Quantity>{cartCount}</Quantity>
-                <Price>{price * cartCount}</Price>
-              </BodyGrid>
-            )
-          })}
-        </Body>
-        <Footer>
-          <TotalHeader>Total</TotalHeader>
-          <TotalPrice>{state.totalPrice}</TotalPrice>
-        </Footer>
-      </Container>
-    </Overlay>
+    <>
+      <input type="checkbox" id="my-modal-3" checked={isChecked(showModal)} className="modal-toggle" readOnly />
+      <div className="modal" ref={modalRef} onClick={closeModal}>
+        <ModalContent className="modal-box relative">
+          <DeleteLabel
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-primary btn-circle absolute right-2 top-2"
+            onClick={() => setShowModal((modal) => !modal)}
+          >
+            ✕
+          </DeleteLabel>
+          <Header>
+            <Title>{title}</Title>
+          </Header>
+          <Body>
+            <Heading>
+              <ProductName>Product Name</ProductName>
+              <Quantity>Quantuty</Quantity>
+              <Price>Price</Price>
+            </Heading>
+            {purchaseList.itemList.map(({ title, price, cartCount }, idx) => {
+              return (
+                <BodyGrid key={"Reciept" + idx}>
+                  <ProductName>{title}</ProductName>
+                  <Quantity>{cartCount}</Quantity>
+                  <Price>${price * cartCount}</Price>
+                </BodyGrid>
+              )
+            })}
+          </Body>
+          <Footer>
+            <TotalHeader>Total</TotalHeader>
+            <TotalPrice>${purchaseList.totalPrice}</TotalPrice>
+          </Footer>
+        </ModalContent>
+      </div>
+    </>
   )
 }
 
-const Overlay = styled.div`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
+const ModalContent = styled.div`
+  min-height: 20rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem;
+  max-width: 48rem;
+`
+
+const DeleteLabel = styled.label`
+  font-size: 1.2rem;
+  flex-wrap: nowrap;
+`
+
+const PurchaseWrapper = styled.div`
+  width: 100%;
+  height: 10%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 999;
 `
-const CloseButton = styled.button`
-  position: absolute;
-  width: 2.4rem;
-  height: 2.4rem;
-  top: 2%;
-  right: 2%;
-  border-radius: 50%;
-  border: 0;
-  background-color: #cb400d;
+
+const PurchaseButton = styled.button`
+  width: 10rem;
 `
-const Container = styled.div`
-  position: absolute;
-  flex-direction: column;
-  border-radius: 0.8rem;
-  min-height: 20rem;
-  display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
-  background-color: white;
-  padding: 2.4rem;
-  margin: 0 2.4rem;
-  max-width: 48rem;
-  width: 100%;
-  z-index: 1000;
-`
+
 const Header = styled.div`
   display: flex;
   height: 10%;
