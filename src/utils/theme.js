@@ -37,12 +37,30 @@ const height = {
   large : "4rem",
 }
 
+const badge = {
+  new : {
+    width : "5rem",
+    height : "2rem",
+    backgroundColor : "green",
+    fontSize : "1.3rem",
+  },
+  best : {
+    width : "6rem",
+    height : "2.5",
+    backgroundColor : "red",
+    fontSize : "1.5rem",
+  }
+
+}
+
+
 const theme = {
   color,
   borderRadius,
   font,
   width,
-  height
+  height,
+  badge
 }
 
 export default theme

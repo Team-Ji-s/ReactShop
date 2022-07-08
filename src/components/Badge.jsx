@@ -1,28 +1,20 @@
 import styled from "styled-components"
 
-export default function Badge({ type, size = "normal" }) {
-  if (type === "new") {
-    return (
-      <StyledBadge type={type} size={size}>
-        NEW
-      </StyledBadge>
-    )
-  } else if (type === "best") {
-    return (
-      <StyledBadge type={type} size={size}>
-        BEST
-      </StyledBadge>
-    )
-  }
+export default function Badge({ message }) {
+  let type = ""
+  if (message === "NEW") type = "new"
+  else type = "best"
+
+  return <StyledBadge type={type}>{message}</StyledBadge>
 }
 
 const StyledBadge = styled.span`
-  width: ${({ theme }) => theme.width.small};
-  height: ${({ theme, size }) => (size === "large" ? theme.height.medium : theme.height.small)};
-  background-color: ${({ theme, type }) => (type === "new" ? theme.color.green : theme.color.red)};
+  width: ${({ theme, type }) => theme.badge[type].width};
+  height: ${({ theme, type }) => theme.badge[type].height};
+  background-color: ${({ theme, type }) => theme.badge[type].backgroundColor};
   color: ${({ theme }) => theme.color.white};
   display: inline-block;
-  font-size: ${({ theme, size }) => (size === "large" ? theme.font.size.large : theme.font.size.normal)};
+  font-size: ${({ theme, type }) => theme.badge[type].fontSize};
   text-align: center;
   border: 0;
   border-radius: 1.5rem;

@@ -43,7 +43,7 @@ export default function ProductPage() {
         <Contents className="card-body lg:w-8/12">
           <ProductTitle>
             <Title className="card-title leading-7 lg:text-4xl md:text-3xl text-2xl">{cartProduct.title}</Title>
-            <Badge type={"best"} size={"large"} />
+            <Badge message="BEST" />
           </ProductTitle>
           <Description className="lg:text-2xl md:text-xl text-lg">{cartProduct.description}</Description>
           <RateDiv>
