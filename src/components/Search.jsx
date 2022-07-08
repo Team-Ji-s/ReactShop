@@ -22,7 +22,7 @@ export default function Search({ mode }) {
   }
 
   const items = searchList
-    .filter((data) => {
+    ?.filter((data) => {
       if (searchInput === "") {
         return data
       } else if (data.title[0].toLowerCase().includes(searchInput)) {
@@ -103,7 +103,7 @@ export default function Search({ mode }) {
 }
 
 const SearchWrapper = styled.div`
-  width: 15rem;
+  // width: 15rem;
   height: 5rem;
   display: inline-block;
   margin-right: 0.5rem;

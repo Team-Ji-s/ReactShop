@@ -39,42 +39,63 @@ export default function Header() {
 
   return (
     <HeaderWrapper mode={mode} className="navbar bg-base-100 p-0">
-      <Logo className="md:inline-block hidden ">
+      <Logo className="md:inline-block hidden w-52 p-4">
         <LogoLink mode={mode} to="/">
           React Shop
         </LogoLink>
       </Logo>
-      <div className="navbar-start">
+      <div className="navbar-center w-1/3">
         <div className="dropdown">
           <MenuButton color={mode} hoverColor="grey" className="btn btn-ghost text-xl text-white md:hidden">
-            <FontAwesomeIcon icon={faBars} alt="menu" />
+            <FontAwesomeIcon className="h-9 w-9" icon={faBars} alt="menu" />
           </MenuButton>
-          <Category tabindex="0" className="menu dropdown-content mt-3 p-2 shadow bg-slate-900 rounded-box w-52">
+          <Category tabIndex="0" className="menu dropdown-content mt-3 p-2 shadow bg-slate-900 rounded-box w-52">
             {category}
           </Category>
         </div>
-        <Category tabindex="0" className="menu menu-horizontal p-0  hidden md:flex">
+        <Category tabIndex="0" className="menu menu-horizontal p-0  hidden md:flex navbar-center">
           {category}
         </Category>
       </div>
-      <div className="navbar-end">
-        <HeaderItem>
-          <ModeButton margin={"0.5rem"} size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
-            {mode === "black" ? (
-              <LightMode icon={faSun} alt="라이트 모드 선택" />
-            ) : (
-              <DarkMode icon={faMoon} alt="다크 모드 선택" />
-            )}
-          </ModeButton>
+      <HeaderItem className="navbar-end w-1/2">
+        <ModeButton size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
+          {mode === "black" ? (
+            <LightMode icon={faSun} alt="라이트 모드 선택" />
+          ) : (
+            <DarkMode icon={faMoon} alt="다크 모드 선택" />
+          )}
+        </ModeButton>
+        <div className="dropdown dropdown-end">
+          <SearchButton className="btn md:hidden text-white h-16" color={mode}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-11 w-11"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </SearchButton>
+          <div className="menu dropdown-content mt-1" tabIndex="0">
+            <Search mode={mode} />
+          </div>
+        </div>
+        <div tabIndex="0" className="menu menu-horizontal p-0  hidden md:flex navbar-center mt-4">
           <Search mode={mode} />
-          <Cart to="/myCart">
-            <span>
-              <CartImg mode={mode} icon={faCartShopping} alt="장바구니" />
-              <CartNumber>{cart}</CartNumber>
-            </span>
-          </Cart>
-        </HeaderItem>
-      </div>
+        </div>
+        <Cart to="/myCart">
+          <span>
+            <CartImg mode={mode} icon={faCartShopping} alt="장바구니" />
+            <CartNumber>{cart}</CartNumber>
+          </span>
+        </Cart>
+      </HeaderItem>
     </HeaderWrapper>
   )
 }
@@ -103,18 +124,17 @@ const MenuButton = styled.button`
 `
 
 const Logo = styled.div`
-  width: 10rem;
   height: 5rem;
   text-align: center;
-  margin-left: 1rem;
 `
 
 const LogoLink = styled(StyledLink)`
   font-size: 1.7rem;
   font-weight: 700;
-  line-height: 4.8rem;
 `
 const CategoryLink = styled(StyledLink)`
+  font-size: 1.3rem;
+  font-weight: 700;
   &:hover {
     background-color: #696969;
   }
@@ -123,13 +143,18 @@ const CategoryLink = styled(StyledLink)`
 const Category = styled.ul``
 
 const HeaderItem = styled.div`
-  width: 23rem;
+  width: 60%;
   height: 5rem;
   display: inline-block;
   margin-right: 0.5rem;
   display: flex;
   flex-direction: row;
-  padding-top: 0.5rem;
+  gap: 0.5rem;
+`
+
+const SearchButton = styled.button`
+  border: 0;
+  background-color: ${({ color }) => (color === "black" ? "black" : "white")};
 `
 
 const ModeButton = styled(Button)`
@@ -158,7 +183,6 @@ const Cart = styled(Link)`
   cursor: pointer;
   position: relative;
   border-radius: 0.5rem;
-  margin: 0rem 0 0 0.5rem;
   &:hover {
     background-color: #696969;
   }
