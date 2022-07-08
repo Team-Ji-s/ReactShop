@@ -5,6 +5,7 @@ import Modal from "../components/CartModal"
 import { Link } from "react-router-dom"
 import { increase, decrease, removeAll } from "../redux/cart"
 import Alert from "../components/Alert"
+import Confirm from "../components/Confirm"
 
 export default function Cart() {
   const [purchaseList, setPurchaseList] = useState({ itemList: [], totalPrice: 0 })
@@ -110,13 +111,7 @@ export default function Cart() {
                       </ContentsContainer>
                     </Link>
                     {deleteAlert === true ? (
-                      <Alert
-                        type={"partialDelete"}
-                        setState={setDeleteAlert}
-                        state={deleteAlert}
-                        itemId={id}
-                        title={title}
-                      />
+                      <Confirm setState={setDeleteAlert} state={deleteAlert} itemId={id} title={title} />
                     ) : null}
                     <ItemButtonWrapper>
                       <Button data-id={id} className="btn btn-primary" id="immediatePurchase" onClick={handlePurchase}>
@@ -135,8 +130,6 @@ export default function Cart() {
                           className="btn btn-square"
                           onClick={() => {
                             if (cartCount === 1) {
-                              // alert("최소 수량 1입니다.")
-                              // return
                               setMinAlert((open) => !open)
                             } else {
                               dispatch(decrease({ id }))
