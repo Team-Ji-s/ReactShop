@@ -49,11 +49,11 @@ export default function Header() {
           <MenuButton color={mode} hoverColor="grey" className="btn btn-ghost text-xl text-white md:hidden">
             <FontAwesomeIcon className="h-9 w-9" icon={faBars} alt="menu" />
           </MenuButton>
-          <Category tabindex="0" className="menu dropdown-content mt-3 p-2 shadow bg-slate-900 rounded-box w-52">
+          <Category tabIndex="0" className="menu dropdown-content mt-3 p-2 shadow bg-slate-900 rounded-box w-52">
             {category}
           </Category>
         </div>
-        <Category tabindex="0" className="menu menu-horizontal p-0  hidden md:flex navbar-center">
+        <Category tabIndex="0" className="menu menu-horizontal p-0  hidden md:flex navbar-center">
           {category}
         </Category>
       </div>
@@ -82,11 +82,11 @@ export default function Header() {
               />
             </svg>
           </SearchButton>
-          <div className="menu dropdown-content mt-1" tabindex="0">
+          <div className="menu dropdown-content mt-1" tabIndex="0">
             <Search mode={mode} />
           </div>
         </div>
-        <div tabindex="0" className="menu menu-horizontal p-0  hidden md:flex navbar-center mt-4">
+        <div tabIndex="0" className="menu menu-horizontal p-0  hidden md:flex navbar-center mt-4">
           <Search mode={mode} />
         </div>
         <Cart to="/myCart">
