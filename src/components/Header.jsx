@@ -49,7 +49,7 @@ export default function Header() {
       </Logo>
       <Category>{category}</Category>
       <HeaderItem>
-        <ModeButton size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
+        <ModeButton margin={"0.5rem"} size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
           {mode === "black" ? (
             <LightMode icon={faSun} alt="라이트 모드 선택" />
           ) : (
@@ -77,6 +77,7 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   z-index: 10;
+  box-shadow: 7px 7px 7px 0 #ddd;
 `
 
 const StyledLink = styled(Link)`
@@ -110,7 +111,7 @@ const CategoryLink = styled(StyledLink)`
   font-size: 1.4rem;
   font-weight: 700;
   text-align: center;
-  padding-top: 0.5rem;
+  padding-top: 0.2rem;
   &:hover {
     background-color: #696969;
   }
@@ -129,13 +130,13 @@ const HeaderItem = styled.div`
   margin-right: 0.5rem;
   display: flex;
   flex-direction: row;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 `
 
 const ModeButton = styled(Button)`
   display: inline-block;
   background-color: ${({ color }) => (color === "black" ? "black" : "white")};
-  margin: 1rem 1rem 0 0;
+  // margin: 1rem 1rem 0 0;
   transition: 0.3s;
   &:hover {
     background-color: #696969;
@@ -178,7 +179,7 @@ const CartNumber = styled.span`
   background-color: red;
   color: white;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   border-radius: 100%;
   text-align: center;
   position: absolute;

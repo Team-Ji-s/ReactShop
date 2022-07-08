@@ -12,5 +12,5 @@ export const card = [
 export const sns = [
   {name : "facebook", image : faFacebook, url : "https://www.facebook.com/0base", id : "11", },
   {name : "instagram", image : faInstagram, url : "https://www.instagram.com/zerobase.official/", id: "22", },
-  {name : "github", image : faGithub, url : "https://github.com/oinochoe", id : "33", }
+  {name : "github", image : faGithub, url : "https://github.com/Team-Ji-s/ReactShop", id : "33", }
 ] 

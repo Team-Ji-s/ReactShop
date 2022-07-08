@@ -5,6 +5,7 @@ import Carousel from "../components/carousel/Carousel"
 import img_shop_digital from "../assets/img_shop_digital.jpeg"
 import img_shop_fashion from "../assets/img_shop_fashion.jpeg"
 import img_shop_grocery from "../assets/img_shop_grocery.jpeg"
+import styled from "styled-components"
 
 export default function MainPage() {
   const [newProducts, setNewProducts] = useState([])
@@ -20,9 +21,14 @@ export default function MainPage() {
   }, [])
 
   return (
-    <>
+    <MainWrapper>
       <Carousel images={[`${img_shop_digital}`, `${img_shop_fashion}`, `${img_shop_grocery}`]} />
       <CardSection title="신제품" data={newProducts} />
-    </>
+    </MainWrapper>
   )
 }
+
+const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`

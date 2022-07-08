@@ -1,15 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   font-size: 62.5%;
+  width: 100%;
+  height: 100%;
 }
 
 body {
   margin: 0;
-  padding-top : 5rem;
+  padding-top: 5rem;
   box-sizing: border-box;
   outline: none;
-  height : 100rem;
   overflow-y: auto;
-  position : relative;
 }
-

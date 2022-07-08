@@ -63,7 +63,7 @@ export default function Search({ mode }) {
 
   useEffect(() => {
     setSearchList(
-      list.map((item) => {
+      list?.map((item) => {
         return { title: item.title, id: item.id }
       })
     )
@@ -103,10 +103,11 @@ export default function Search({ mode }) {
 }
 
 const SearchWrapper = styled.div`
-  width: 13rem;
+  width: 15rem;
   height: 5rem;
   display: inline-block;
   margin-right: 0.5rem;
+  padding-left: 0.3rem;
 `
 
 const Hidden = styled.div`
@@ -114,13 +115,21 @@ const Hidden = styled.div`
 `
 
 const SearchViewWrapper = styled.div`
-  width: 12rem;
+  width: 13rem;
   height: 20rem;
   overflow: auto;
   background-color: white;
   z-index: 12;
   border: 1px solid black;
-  margin-left: 0.8rem;
+  margin-left: 1rem;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    height: 30%;
+    background: grey;
+    border-radius: 1rem;
+  }
 `
 
 const Items = styled.ul`
@@ -130,19 +139,21 @@ const Items = styled.ul`
 const ItemList = styled.li`
   list-style: none;
   margin: 0.5rem;
+  border-radius: 0.3rem;
   &:hover {
-    background-color: ${({ theme }) => theme.color.grey};
+    background-color: #ddd;
   }
   cursor: pointer;
 `
 
 const SearchInput = styled.input`
-  width: 12rem;
-  height: 2.5rem;
+  width: 14rem;
+  height: 2.8rem;
   background-color: ${(props) => (props.mode === "black" ? "#696969" : "#cdcdcd")};
   border-radius: 0.5rem;
   border: 0;
   color: ${(props) => (props.mode === "black" ? "white" : "black")};
+  font-size: 1.3rem;
   padding-left: 0.6rem;
   margin: 0.6rem 0 0 0.5rem;
   ::placeholder {
@@ -153,6 +164,8 @@ const SearchInput = styled.input`
 const Item = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.color.black};
+  font-size: 1.1rem;
+  font-weight: 600;
 `
 
 const NonItem = styled.li`
