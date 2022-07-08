@@ -4,7 +4,7 @@ import CardItem from "./CardItem"
 
 export default function CardList({ data }) {
   return (
-    <CardContainer>
+    <CardContainer className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-1.5">
       {data?.map(({ id, category, image, title, price }) => {
         return <CardItem key={`${category}_${id}`} id={id} src={image} alt={category} title={title} price={price} />
       })}
@@ -12,8 +12,4 @@ export default function CardList({ data }) {
   )
 }
 
-const CardContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.5rem;
-`
+const CardContainer = styled.div``
