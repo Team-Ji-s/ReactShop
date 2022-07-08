@@ -71,8 +71,8 @@ export default function Cart() {
       {modal === true ? (
         <Modal title="Receipt" purchaseList={purchaseList} showModal={modal} setShowModal={setModal} />
       ) : null}
-      {alert === true ? <Alert type="partialPurchase" setState={setAlert} state={alert} /> : null}
-      {minAlert === true ? <Alert type="minAlert" setState={setMinAlert} state={minAlert} /> : null}
+      {alert === true ? <Alert setState={setAlert} state={alert} message="선택한 상품이 없습니다."/> : null}
+      {minAlert === true ? <Alert setState={setMinAlert} state={minAlert} message="최소 수량 1입니다." /> : null}
       {cartProducts.length ? (
         <CartWrapper>
           <AllProductsCheck>

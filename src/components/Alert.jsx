@@ -1,7 +1,7 @@
 import { useRef, useCallback, useEffect } from "react"
 import styled from "styled-components"
 
-export default function Alert({ type, setState, state }) {
+export default function Alert({ setState, state, message }) {
   const modalRef = useRef()
 
   const closeModal = (e) => {
@@ -32,43 +32,23 @@ export default function Alert({ type, setState, state }) {
     }
   }
 
-  if (type === "partialPurchase") {
-    return (
-      <>
-        <input type="checkbox" id="my-modal-3" checked={isChecked(state)} className="modal-toggle" readOnly />
-        <div className="modal" ref={modalRef} onClick={closeModal}>
-          <PartialWrapper className="modal-box relative">
-            <DeleteLabel
-              htmlFor="my-modal-3"
-              className="btn btn-sm btn-primary btn-circle absolute right-2 top-2"
-              onClick={() => setState((modal) => !modal)}
-            >
-              ✕
-            </DeleteLabel>
-            <PartialContent className="text-lg font-bold">선택한 상품이 없습니다.</PartialContent>
-          </PartialWrapper>
-        </div>
-      </>
-    )
-  } else if (type === "minAlert") {
-    return (
-      <>
-        <input type="checkbox" id="my-modal-3" checked={isChecked(state)} className="modal-toggle" readOnly />
-        <div className="modal" ref={modalRef} onClick={closeModal}>
-          <PartialWrapper className="modal-box relative">
-            <DeleteLabel
-              htmlFor="my-modal-3"
-              className="btn btn-sm btn-primary btn-circle absolute right-2 top-2"
-              onClick={() => setState((modal) => !modal)}
-            >
-              ✕
-            </DeleteLabel>
-            <PartialContent className="text-lg font-bold">최소 수량 1입니다.</PartialContent>
-          </PartialWrapper>
-        </div>
-      </>
-    )
-  }
+  return (
+    <>
+      <input type="checkbox" id="my-modal-3" checked={isChecked(state)} className="modal-toggle" readOnly />
+      <div className="modal" ref={modalRef} onClick={closeModal}>
+        <PartialWrapper className="modal-box relative">
+          <DeleteLabel
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-primary btn-circle absolute right-2 top-2"
+            onClick={() => setState((modal) => !modal)}
+          >
+            ✕
+          </DeleteLabel>
+          <PartialContent className="text-lg font-bold">{message}</PartialContent>
+        </PartialWrapper>
+      </div>
+    </>
+  )
 }
 
 const PartialWrapper = styled.div`
