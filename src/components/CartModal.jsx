@@ -16,7 +16,7 @@ export default function CartModal({ title, purchaseList, showModal, setShowModal
         setShowModal(false)
       }
     },
-    [setShowModal, showModal]
+    [showModal]
   )
 
   useEffect(() => {
@@ -84,18 +84,6 @@ const ModalContent = styled.div`
 const DeleteLabel = styled.label`
   font-size: 1.2rem;
   flex-wrap: nowrap;
-`
-
-const PurchaseWrapper = styled.div`
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const PurchaseButton = styled.button`
-  width: 10rem;
 `
 
 const Header = styled.div`
