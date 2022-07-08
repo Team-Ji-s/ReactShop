@@ -71,7 +71,7 @@ export default function Cart() {
       {modal === true ? (
         <Modal title="Receipt" purchaseList={purchaseList} showModal={modal} setShowModal={setModal} />
       ) : null}
-      {alert === true ? <Alert setState={setAlert} state={alert} message="선택한 상품이 없습니다."/> : null}
+      {alert === true ? <Alert setState={setAlert} state={alert} message="선택한 상품이 없습니다." /> : null}
       {minAlert === true ? <Alert setState={setMinAlert} state={minAlert} message="최소 수량 1입니다." /> : null}
       {cartProducts.length ? (
         <CartWrapper>
@@ -89,8 +89,8 @@ export default function Cart() {
             <ItemWrapper>
               {cartProducts?.map(({ category, id, image, title, price, cartCount }, idx) => {
                 return (
-                  <CartItemContainer className="card w-full bg-base-100 shadow-xl" key={category + idx}>
-                    <ItemCheck>
+                  <div className="card sm:card-side my-4 bg-base-100 shadow-xl flex min-w-fit" key={category + idx}>
+                    <div className="basis-1/12 flex sm:items-center sm:justify-center m-0.5">
                       <input
                         type="checkbox"
                         className="productChecks checkbox checkbox-lg checkbox-primary"
@@ -98,34 +98,41 @@ export default function Cart() {
                         value={id}
                         onChange={handleCheckBox}
                       />
-                    </ItemCheck>
-                    <Link to={`/product/${id}`}>
-                      <ContentsContainer>
-                        <ProductImageWrapper className="px-10">
-                          <ProductImage src={image} alt={category} className="rounded-xl" />
-                        </ProductImageWrapper>
-                        <ProductDescription className="card-body">
-                          <ProductName className="card-title">{title}</ProductName>
-                          <ProductPrice>${price}</ProductPrice>
+                    </div>
+                    <Link to={`/product/${id}`} className="flex basis-9/12">
+                      <div className="flex w-full sm:flex-row flex-col items-center">
+                        <div className="basis-2/5">
+                          <img src={image} alt={category} className="w-full max-h-64 object-scale-down rounded-xl" />
+                        </div>
+                        <ProductDescription className="basis-3/5 card-body">
+                          <ProductName className="card-title text-center sm:text-start">{title}</ProductName>
+                          <ProductPrice className="text-center sm:text-start">${price}</ProductPrice>
                         </ProductDescription>
-                      </ContentsContainer>
+                      </div>
                     </Link>
                     {deleteAlert === true ? (
                       <Confirm setState={setDeleteAlert} state={deleteAlert} itemId={id} title={title} />
                     ) : null}
-                    <ItemButtonWrapper>
-                      <Button data-id={id} className="btn btn-primary" id="immediatePurchase" onClick={handlePurchase}>
-                        구매하기
-                      </Button>
-                      <Button
-                        className="btn btn-primary"
-                        onClick={() => {
-                          setDeleteAlert((open) => !open)
-                        }}
-                      >
-                        삭제하기
-                      </Button>
-                      <ItemQuantityWrapper>
+                    <div className="basis-2/12 w-full flex flex-col items-center justify-center">
+                      <div className="flex flex-col w-96">
+                        <button
+                          data-id={id}
+                          className="btn btn-primary mx-20 my-2"
+                          id="immediatePurchase"
+                          onClick={handlePurchase}
+                        >
+                          구매하기
+                        </button>
+                        <button
+                          className="btn btn-primary mx-20 my-2"
+                          onClick={() => {
+                            setDeleteAlert((open) => !open)
+                          }}
+                        >
+                          삭제하기
+                        </button>
+                      </div>
+                      <ItemQuantityWrapper className="my-1">
                         <Button
                           className="btn btn-square"
                           onClick={() => {
@@ -148,8 +155,8 @@ export default function Cart() {
                           +
                         </Button>
                       </ItemQuantityWrapper>
-                    </ItemButtonWrapper>
-                  </CartItemContainer>
+                    </div>
+                  </div>
                 )
               })}
             </ItemWrapper>
@@ -223,42 +230,6 @@ const ItemWrapper = styled.div`
   flex-direction: column;
 `
 
-const CartItemContainer = styled.div`
-  margin: 1rem 0;
-  width: 100%;
-  height: 20rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-const ContentsContainer = styled.div`
-  width: 100%;
-  height: 15rem;
-  display: flex;
-  align-items: center;
-`
-const ProductImageWrapper = styled.div`
-  display: flex;
-  height: 20rem;
-  width: 30rem;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0;
-`
-const ItemCheck = styled.div`
-  width: 10rem;
-  text-align: center;
-`
-const ProductImage = styled.img`
-  object-fit: scale-down;
-  height: 60%;
-  width: 60%;
-  &:hover {
-    height: 80%;
-    width: 80%;
-  }
-`
 const ProductDescription = styled.div`
   width: 30rem;
   height: 20rem;
@@ -281,15 +252,7 @@ const ProductPrice = styled.span`
   font-size: 1.7rem;
   font-weight: 700;
 `
-const ItemButtonWrapper = styled.div`
-  height: 20rem;
-  width: 20rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-`
+
 const ItemQuantityWrapper = styled.div`
   display: flex;
   justify-content: center;
