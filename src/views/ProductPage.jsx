@@ -38,25 +38,23 @@ export default function ProductPage() {
     <ProductPageWrapper>
       <BreadCrumbs from={cartProduct.category} to={cartProduct.title} />
       {modal === true ? <Modal showModal={modal} setShowModal={setModal} /> : null}
-      <ProductWrapper className="card lg:card-side bg-base-100 shadow-xl">
-        <ImageWrapper className="px-10 pt-10">
-          <Image src={cartProduct.image} alt="상품이미지" className="rounded-xl" />
-        </ImageWrapper>
-        <Contents className="card-body">
+      <ProductWrapper className="card w-10/12 sm:w-3/4 lg:card-side bg-base-100 shadow-xl">
+        <Image src={cartProduct.image} alt="상품이미지" className="w-2/5 max-w-xl" />
+        <Contents className="card-body lg:w-8/12">
           <ProductTitle>
-            <Title className="card-title">{cartProduct.title}</Title>
+            <Title className="card-title leading-7 lg:text-4xl md:text-3xl text-2xl">{cartProduct.title}</Title>
             <Badge type={"best"} size={"large"} />
           </ProductTitle>
-          <Description>{cartProduct.description}</Description>
+          <Description className="lg:text-2xl md:text-xl text-lg">{cartProduct.description}</Description>
           <RateDiv>
             <StarRate rate={cartProduct.rating?.rate} />
-            <Rate>
+            <Rate className="lg:text-2xl md:text-xl text-lg">
               {cartProduct.rating?.rate} / {cartProduct.rating?.count} 참여
             </Rate>
           </RateDiv>
-          <Price>${cartProduct.price}</Price>
-          <ButtonDiv>
-            <Button className="btn btn-primary" onClick={addToCart}>
+          <Price className="lg:text-4xl md:text-3xl text-2xl">${cartProduct.price}</Price>
+          <ButtonDiv className="flex justify-center lg:justify-start">
+            <Button className="btn btn-primary mr-16" onClick={addToCart}>
               장바구니에 담기
             </Button>
             <Link to={"/myCart"}>
@@ -70,35 +68,26 @@ export default function ProductPage() {
 }
 
 const ProductPageWrapper = styled.div`
-  height: 50rem;
   display: flex;
+  padding: 0 0 5rem;
   flex-direction: column;
   position: relative;
+  min-width: 50rem;
 `
 
 const ProductWrapper = styled.div`
-  height: 45rem;
-`
-
-const ImageWrapper = styled.figure`
-  margin: 0;
-  padding: 0;
+  margin: 5rem auto 0;
 `
 
 const Image = styled.img`
-  width: 40rem;
-  height: 40rem;
-  background-color: white;
+  max-width: 30rem;
+  max-height: 30rem;
   object-fit: scale-down;
   display: inline-block;
   padding: 3rem;
-  border-radius: 3rem;
-  box-shadow: 2px 2px 2px 2px #ddd;
-  margin-left: 2rem;
+  margin: auto;
 `
-
 const Contents = styled.div`
-  height: 40rem;
   margin: auto;
   padding: 3rem;
   display: flex;
@@ -114,49 +103,33 @@ const ProductTitle = styled.span`
 `
 const Title = styled.h2`
   display: inline-block;
-  font-size: 2.5rem;
   margin-right: 1rem;
-  line-height: 3rem;
 `
 
 const Description = styled.div`
-  width: 100%;
-  font-size: 1.5rem;
   color: ${({ theme }) => theme.color.black};
   margin-bottom: 1rem;
 `
 
 const RateDiv = styled.div`
-  width: 100%;
-  height: 3rem;
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin-bottom: 1rem;
 `
 
 const Rate = styled.span`
-  height: 3rem;
-  font-size: ${({ theme }) => theme.font.size.large};
   color: ${({ theme }) => theme.color.black};
   margin-left: 1rem;
-  text-align: center;
-  padding-top: 0.5rem;
   font-weight: 700;
 `
 const Price = styled.div`
-  font-size: 2.5rem;
   color: ${({ theme }) => theme.color.black};
   font-weight: ${({ theme }) => theme.font.weight.normal};
   margin-bottom: 2rem;
 `
 
-const ButtonDiv = styled.div`
-  display: grid;
-  width: 25rem;
-  height: 4rem;
-  grid-auto-flow: column;
-  column-gap: 0.5rem;
-`
+const ButtonDiv = styled.div``
 
 const Button = styled.button`
   width: 12rem;
@@ -165,26 +138,4 @@ const Button = styled.button`
   font-weight: 700;
   padding: 0;
   color: white;
-`
-
-const ModalWrapper = styled.div`
-  width: 20rem;
-  height: 10rem;
-  background-color: ${({ theme }) => theme.color.white};
-  border: 1px solid #000000;
-  border-radius: 0.5rem;
-  z-index: 10;
-  position: absolute;
-  top: 15rem;
-  left: 45%;
-  display: grid;
-  place-items: center;
-  grid-auto-flow: row;
-  row-gap: 0.25rem;
-`
-
-const ModalContent = styled.p`
-  font-size: ${({ theme }) => theme.font.size.large};
-  font-weight: ${({ theme }) => theme.font.weight.normal};
-  margin-bottom: 0;
 `

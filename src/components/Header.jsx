@@ -30,40 +30,51 @@ export default function Header() {
   }
 
   const category = categoryData.map((item, index) => (
-    <CategoryLink mode={mode} key={index} to={item.url}>
-      {item.category}
-    </CategoryLink>
+    <li key={index}>
+      <CategoryLink mode={mode} to={item.url}>
+        {item.category}
+      </CategoryLink>
+    </li>
   ))
 
   return (
-    <HeaderWrapper mode={mode}>
-      <Hidden>
-        <Button color={mode} size={"xSmall"}>
-          <FontAwesomeIcon icon={faBars} alt="menu" />
-        </Button>
-      </Hidden>
-      <Logo>
+    <HeaderWrapper mode={mode} className="navbar bg-base-100 p-0">
+      <Logo className="md:inline-block hidden ">
         <LogoLink mode={mode} to="/">
           React Shop
         </LogoLink>
       </Logo>
-      <Category>{category}</Category>
-      <HeaderItem>
-        <ModeButton margin={"0.5rem"} size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
-          {mode === "black" ? (
-            <LightMode icon={faSun} alt="라이트 모드 선택" />
-          ) : (
-            <DarkMode icon={faMoon} alt="다크 모드 선택" />
-          )}
-        </ModeButton>
-        <Search mode={mode} />
-        <Cart to="/myCart">
-          <span>
-            <CartImg mode={mode} icon={faCartShopping} alt="장바구니" />
-            <CartNumber>{cart}</CartNumber>
-          </span>
-        </Cart>
-      </HeaderItem>
+      <div className="navbar-start">
+        <div className="dropdown">
+          <MenuButton color={mode} hoverColor="grey" className="btn btn-ghost text-xl text-white md:hidden">
+            <FontAwesomeIcon icon={faBars} alt="menu" />
+          </MenuButton>
+          <Category tabindex="0" className="menu dropdown-content mt-3 p-2 shadow bg-slate-900 rounded-box w-52">
+            {category}
+          </Category>
+        </div>
+        <Category tabindex="0" className="menu menu-horizontal p-0  hidden md:flex">
+          {category}
+        </Category>
+      </div>
+      <div className="navbar-end">
+        <HeaderItem>
+          <ModeButton margin={"0.5rem"} size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
+            {mode === "black" ? (
+              <LightMode icon={faSun} alt="라이트 모드 선택" />
+            ) : (
+              <DarkMode icon={faMoon} alt="다크 모드 선택" />
+            )}
+          </ModeButton>
+          <Search mode={mode} />
+          <Cart to="/myCart">
+            <span>
+              <CartImg mode={mode} icon={faCartShopping} alt="장바구니" />
+              <CartNumber>{cart}</CartNumber>
+            </span>
+          </Cart>
+        </HeaderItem>
+      </div>
     </HeaderWrapper>
   )
 }
@@ -85,14 +96,15 @@ const StyledLink = styled(Link)`
   color: ${(props) => (props.mode === "black" ? "white" : "black")};
 `
 
-const Hidden = styled.div`
-  display: none;
+const MenuButton = styled.button`
+  &:hover {
+    background-color: ${({ theme, hoverColor }) => theme.color[hoverColor]};
+  }
 `
 
 const Logo = styled.div`
   width: 10rem;
   height: 5rem;
-  display: inline-block;
   text-align: center;
   margin-left: 1rem;
 `
@@ -103,25 +115,12 @@ const LogoLink = styled(StyledLink)`
   line-height: 4.8rem;
 `
 const CategoryLink = styled(StyledLink)`
-  display: inline-block;
-  width: 6rem;
-  height: 2.5rem;
-  border-radius: 0.6rem;
-  margin-right: 1rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-align: center;
-  padding-top: 0.2rem;
   &:hover {
     background-color: #696969;
   }
 `
 
-const Category = styled.div`
-  display: inline-block;
-  flex: 1 1 0;
-  margin-left: 1rem;
-`
+const Category = styled.ul``
 
 const HeaderItem = styled.div`
   width: 23rem;
@@ -136,7 +135,6 @@ const HeaderItem = styled.div`
 const ModeButton = styled(Button)`
   display: inline-block;
   background-color: ${({ color }) => (color === "black" ? "black" : "white")};
-  // margin: 1rem 1rem 0 0;
   transition: 0.3s;
   &:hover {
     background-color: #696969;

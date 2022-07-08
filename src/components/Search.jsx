@@ -115,13 +115,16 @@ const Hidden = styled.div`
 `
 
 const SearchViewWrapper = styled.div`
-  width: 13rem;
+  position: relative;
+  transform: translateX(-0.5rem);
+  width: 14.2rem;
   height: 20rem;
   overflow: auto;
   background-color: white;
   z-index: 12;
   border: 1px solid black;
   margin-left: 1rem;
+  border-radius: 0.5rem;
   &::-webkit-scrollbar {
     width: 1rem;
   }
