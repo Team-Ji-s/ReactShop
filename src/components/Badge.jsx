@@ -1,11 +1,7 @@
 import styled from "styled-components"
 
-export default function Badge({ message }) {
-  let type = ""
-  if (message === "NEW") type = "new"
-  else type = "best"
-
-  return <StyledBadge type={type}>{message}</StyledBadge>
+export default function Badge({ type }) {
+  return <StyledBadge type={type}>{type.toUpperCase()}</StyledBadge>
 }
 
 const StyledBadge = styled.span`
