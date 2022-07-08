@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import BreadCrumbs from "../components/BreadCrumbs"
 import Badge from "../components/Badge"
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { add } from "../redux/cart"
 import Modal from "../components/ProductModal"
 
-export const ProductPage = React.memo(() => {
+export default function ProductPage() {
   const { id } = useParams()
   const [modal, setModal] = useState(false)
   const [cartProduct, setCartProduct] = useState({})
@@ -67,7 +67,7 @@ export const ProductPage = React.memo(() => {
       </ProductWrapper>
     </ProductPageWrapper>
   )
-})
+}
 
 const ProductPageWrapper = styled.div`
   height: 50rem;
