@@ -16,7 +16,7 @@ export default function MainPage() {
     setNewProducts(() => {
       const categoryList = ["electronics", "jewelery", "men's clothing", "women's clothing"]
       const productList = categoryList.map((category) => list?.filter((item) => item.category === category))
-      return productList.map((item) => item[item.length - 1])
+      return productList?.map((item) => item[item.length - 1])
     })
   }, [])
 
