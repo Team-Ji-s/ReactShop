@@ -3,7 +3,7 @@ import BreadCrumbs from "../components/BreadCrumbs"
 import { CardSection } from "../components/card"
 import { useSelector } from "react-redux"
 import styled from "styled-components"
-import Filter from "../hook/Filter"
+import Filter from "../components/Filter"
 
 export default function Fashion() {
   const [fashion, setFashion] = useState([])
