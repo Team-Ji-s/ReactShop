@@ -67,8 +67,9 @@ export default function Carousel({ images, width, height, lengthOfTime = "500" }
 }
 
 const Container = styled.div`
-  width: ${({ width }) => width || "96%"};
-  height: ${({ height }) => height || "40rem"};
+  width: ${({ width }) => width || "80%"};
+  height: ${({ height }) => height || "50rem"};
+  max-width: 100rem;
   position: relative;
   margin: 5rem auto 0;
   border-radius: 2rem;
@@ -80,7 +81,7 @@ const Slides = styled.div`
   transform: translate3D(${({ currentSlide }) => currentSlide * -100}%, 0, 0);
 `
 const Image = styled.div`
-  height: ${({ height }) => height || "40rem"};
+  height: ${({ height }) => height || "50rem"};
   flex-basis: calc(${({ width }) => width || "100%"});
   flex-shrink: 0;
   background-image: url(${({ bguUrl }) => bguUrl});
