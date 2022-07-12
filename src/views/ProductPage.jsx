@@ -14,7 +14,7 @@ export default function ProductPage() {
   const [cartProduct, setCartProduct] = useState({})
   const dispatch = useDispatch()
   const { count } = useSelector(({ cart }) => cart)
-  const list = useSelector((state) => state.setProduct.value)
+  const list = useSelector((state) => state.setProduct.products)
 
   useEffect(() => {
     const item = list?.filter((item) => item.id.toString() === id)

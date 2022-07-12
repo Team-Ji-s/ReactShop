@@ -13,9 +13,9 @@ import { getList } from "../redux/setProduct"
 
 export default function Header() {
   const cartStore = useSelector((state) => state.cart)
-  const modeStore = useSelector((state) => state.mode.value)
+  const modeStore = useSelector((state) => state.mode.color)
 
-  let mode = modeStore.color
+  let mode = modeStore
   const cart = cartStore.count
 
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ export default function Header() {
 
   const onClickMode = () => {
     mode = mode === "black" ? "white" : "black"
-    dispatch(change({ color: mode }))
+    dispatch(change(mode))
   }
 
   const category = categoryData.map((item, index) => (

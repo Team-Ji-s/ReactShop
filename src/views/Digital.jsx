@@ -8,7 +8,7 @@ import Filter from "../components/Filter"
 export default function Digital() {
   const [digital, setDigital] = useState([])
 
-  const list = useSelector((state) => state.setProduct.value)
+  const list = useSelector((state) => state.setProduct.products)
 
   useEffect(() => {
     setDigital(list.filter((item) => item.category === "electronics"))

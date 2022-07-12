@@ -8,7 +8,7 @@ import Filter from "../components/Filter"
 export default function Fashion() {
   const [fashion, setFashion] = useState([])
 
-  const list = useSelector((state) => state.setProduct.value)
+  const list = useSelector((state) => state.setProduct.products)
 
   useEffect(() => {
     setFashion(list.filter((item) => item.category === "women's clothing" || item.category === "men's clothing"))

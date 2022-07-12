@@ -11,7 +11,7 @@ export default function Search({ mode }) {
   const [searchListView, setSearchListView] = useState(false)
   const [searchList, setSearchList] = useState([])
 
-  const list = useSelector((state) => state.setProduct.value)
+  const list = useSelector((state) => state.setProduct.products)
 
   const searchElement = useRef()
   const searchValue = useRef()
