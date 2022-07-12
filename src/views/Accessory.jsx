@@ -8,7 +8,7 @@ import Filter from "../components/Filter"
 export default function Accessory() {
   const [accessory, setAccessory] = useState([])
 
-  const list = useSelector((state) => state.setProduct.value)
+  const list = useSelector((state) => state.setProduct.products)
 
   useEffect(() => {
     setAccessory(list.filter((item) => item.category === "jewelery"))

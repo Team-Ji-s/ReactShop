@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import Button from "../components/Button"
 
-export default function Search({ mode }) {
+export default function Search({ color }) {
   const [searchInput, setSearchInput] = useState("")
   const [searchListView, setSearchListView] = useState(false)
   const [searchList, setSearchList] = useState([])
 
-  const list = useSelector((state) => state.setProduct.value)
+  const list = useSelector((state) => state.setProduct.products)
 
   const searchElement = useRef()
   const searchValue = useRef()
@@ -79,13 +79,13 @@ export default function Search({ mode }) {
   return (
     <SearchWrapper ref={searchElement} onClick={searchClick}>
       <Hidden>
-        <Button color={mode} size={"xSmall"}>
+        <Button color={color} size={"xSmall"}>
           <FontAwesomeIcon icon={faMagnifyingGlass} alt="검색" />
         </Button>
       </Hidden>
       <SearchInput
         ref={searchValue}
-        mode={mode}
+        color={color}
         type="text"
         placeholder="검색"
         onChange={(e) => onChangeSearchInput(e)}
@@ -103,7 +103,6 @@ export default function Search({ mode }) {
 }
 
 const SearchWrapper = styled.div`
-  // width: 15rem;
   height: 5rem;
   display: inline-block;
   margin-right: 0.5rem;
@@ -152,15 +151,15 @@ const ItemList = styled.li`
 const SearchInput = styled.input`
   width: 14rem;
   height: 2.8rem;
-  background-color: ${(props) => (props.mode === "black" ? "#696969" : "#cdcdcd")};
+  background-color: ${(props) => (props.color === "black" ? "#696969" : "#cdcdcd")};
   border-radius: 0.5rem;
   border: 0;
-  color: ${(props) => (props.mode === "black" ? "white" : "black")};
+  color: ${(props) => (props.color === "black" ? "white" : "black")};
   font-size: 1.3rem;
   padding-left: 0.6rem;
   margin: 0.6rem 0 0 0.5rem;
   ::placeholder {
-    color: ${(props) => (props.mode === "black" ? "white" : "black")};
+    color: ${(props) => (props.color === "black" ? "white" : "black")};
   }
 `
 

@@ -10,7 +10,7 @@ import styled from "styled-components"
 export default function MainPage() {
   const [newProducts, setNewProducts] = useState([])
 
-  const list = useSelector((state) => state.setProduct.value)
+  const list = useSelector((state) => state.setProduct.products)
 
   useEffect(() => {
     setNewProducts(() => {

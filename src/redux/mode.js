@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialStateValue = {color : "black"}
 
 export const modeSlice = createSlice({
   name : "mode",
-  initialState : {value : initialStateValue},
+  initialState : {mode : "black"},
   reducers : {
     change : (state, action) => {
-      state.value = action.payload
+      state.mode = action.payload
     },
   },
 })

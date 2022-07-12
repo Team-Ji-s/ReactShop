@@ -4,7 +4,7 @@ export default function Button({
   id,
   type = "button",
   size,
-  color = "purple",
+  color,
   borderRadius = "all",
   hoverColor = "green",
   children,
