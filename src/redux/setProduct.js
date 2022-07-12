@@ -1,8 +1,6 @@
 import axios from "axios"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-const initialStateValue = { products: [] }
-
 export const getList = createAsyncThunk("GET_PRODUCTS", async () => {
   try {
     const response = await axios.get("https://fakestoreapi.com/products")
@@ -14,11 +12,11 @@ export const getList = createAsyncThunk("GET_PRODUCTS", async () => {
 
 export const setProductSlice = createSlice({
   name: "setProduct",
-  initialState: { value: initialStateValue },
+  initialState: { products : [] },
   reducers: {},
   extraReducers: {
     [getList.fulfilled]: (state, action) => {
-      state.value = action.payload
+      state.products = action.payload
     }
   }
 })
