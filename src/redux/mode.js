@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const modeSlice = createSlice({
   name : "mode",
-  initialState : {color : "black"},
+  initialState : {mode : "black"},
   reducers : {
     change : (state, action) => {
-      state.color = action.payload
+      state.mode = action.payload
     },
   },
 })

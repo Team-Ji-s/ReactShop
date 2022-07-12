@@ -13,9 +13,9 @@ import { getList } from "../redux/setProduct"
 
 export default function Header() {
   const cartStore = useSelector((state) => state.cart)
-  const modeStore = useSelector((state) => state.mode.color)
+  const modeStore = useSelector((state) => state.mode)
 
-  let mode = modeStore
+  let color = modeStore.mode
   const cart = cartStore.count
 
   const dispatch = useDispatch()
@@ -25,28 +25,28 @@ export default function Header() {
   }, [])
 
   const onClickMode = () => {
-    mode = mode === "black" ? "white" : "black"
-    dispatch(change(mode))
+    color = color === "black" ? "white" : "black"
+    dispatch(change(color))
   }
 
   const category = categoryData.map((item, index) => (
     <li key={index}>
-      <CategoryLink mode={mode} to={item.url}>
+      <CategoryLink color={color} to={item.url}>
         {item.category}
       </CategoryLink>
     </li>
   ))
 
   return (
-    <HeaderWrapper mode={mode} className="navbar bg-base-100 p-0">
+    <HeaderWrapper color={color} className="navbar bg-base-100 p-0">
       <Logo className="md:inline-block hidden w-52 p-4">
-        <LogoLink mode={mode} to="/">
+        <LogoLink color={color} to="/">
           React Shop
         </LogoLink>
       </Logo>
       <div className="navbar-center w-1/3">
         <div className="dropdown">
-          <MenuButton color={mode} hoverColor="grey" className="btn btn-ghost text-xl text-white md:hidden">
+          <MenuButton color={color} hoverColor="grey" className="btn btn-ghost text-xl text-white md:hidden">
             <FontAwesomeIcon className="h-9 w-9" icon={faBars} alt="menu" />
           </MenuButton>
           <Category tabIndex="0" className="menu dropdown-content mt-3 p-2 shadow bg-slate-900 rounded-box w-52">
@@ -58,15 +58,15 @@ export default function Header() {
         </Category>
       </div>
       <HeaderItem className="navbar-end w-1/2">
-        <ModeButton size={"xSmall"} color={mode} hoverColor={"grey"} onClick={onClickMode}>
-          {mode === "black" ? (
+        <ModeButton size={"xSmall"} color={color} hoverColor={"grey"} onClick={onClickMode}>
+          {color === "black" ? (
             <LightMode icon={faSun} alt="라이트 모드 선택" />
           ) : (
             <DarkMode icon={faMoon} alt="다크 모드 선택" />
           )}
         </ModeButton>
         <div className="dropdown dropdown-end">
-          <SearchButton className="btn md:hidden text-white h-16" color={mode}>
+          <SearchButton className="btn md:hidden text-white h-16" color={color}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-11 w-11"
@@ -83,15 +83,15 @@ export default function Header() {
             </svg>
           </SearchButton>
           <div className="menu dropdown-content mt-1" tabIndex="0">
-            <Search mode={mode} />
+            <Search color={color} />
           </div>
         </div>
         <div tabIndex="0" className="menu menu-horizontal p-0  hidden md:flex navbar-center mt-4">
-          <Search mode={mode} />
+          <Search color={color} />
         </div>
         <Cart to="/myCart">
           <span>
-            <CartImg mode={mode} icon={faCartShopping} alt="장바구니" />
+            <CartImg color={color} icon={faCartShopping} alt="장바구니" />
             <CartNumber>{cart}</CartNumber>
           </span>
         </Cart>
@@ -103,7 +103,7 @@ export default function Header() {
 const HeaderWrapper = styled.header`
   width: 100%;
   height: 5rem;
-  background-color: ${(props) => props.mode};
+  background-color: ${(props) => props.color};
   display: flex;
   align-items: center;
   position: fixed;
@@ -114,7 +114,7 @@ const HeaderWrapper = styled.header`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: ${(props) => (props.mode === "black" ? "white" : "black")};
+  color: ${(props) => (props.color === "black" ? "white" : "black")};
 `
 
 const MenuButton = styled.button`
@@ -191,7 +191,7 @@ const Cart = styled(Link)`
 const CartImg = styled(FontAwesomeIcon)`
   width: 2.5rem;
   height: 2.5rem;
-  color: ${(props) => (props.mode === "black" ? "white" : "black")};
+  color: ${(props) => (props.color === "black" ? "white" : "black")};
   margin: 0.8rem 0.5rem 0.5rem 0.5rem;
 `
 const CartNumber = styled.span`
